@@ -2,17 +2,20 @@
   <body>
     <div class="notes">
       <div class="row">
-          <div class="column column-20 sidebar">
+          <div class="column column-40 sidebar">
           <h5>
             <a href="#" v-on:click="addNote"> + </a>
             <ul>
-              <li v-for="note in notes" :key="note.id" class="{ active: note=== selected}" v-on:click="selectNote(note)">
-                {{ note.body }}
+              <li v-for="note in notes">
+                <span :key="note.id" class="{ active: note=== selected}" v-on:click="selectNote(note)">
+                  {{ note.body }}
+                </span>
+                <span><a href="#" v-on:click="removeNote(note)"> x </a></span>
               </li>
             </ul>
           </h5>
           </div>
-          <div class="column column-80" style="position:relative;">
+          <div class="column column-60" style="position:relative;">
             <transition name="fade" appear>
               <editor v-if="selected" v-model="selected.body" :key="selected.id">
               </editor>
@@ -35,7 +38,7 @@ export default {
       selected: undefined
     };
   },
-  methods: { addNote, selectNote },
+  methods: { addNote, selectNote, removeNote },
   mounted: function() {
     const vm = this;
     loadNotes(this);
@@ -97,6 +100,14 @@ function onChange(val, prev) {
   if (!prev) return;
   save(this.notes)
 }
+
+function removeNote(note) {
+  this.notes = this.notes.filter(e => e !== note);
+
+  // focus on the first note after delete
+  this.selected = this.notes[0];
+}
+
 </script>
 
 <style>
@@ -113,5 +124,14 @@ function onChange(val, prev) {
 .fade-enter, .fade-leave-to {
   opacity: 0;
   transform: translateY(-30px);
+}
+
+li{
+  -webkit-column-count: 3;
+     -moz-column-count: 3;
+          column-count: 3;
+  -webkit-column-gap: 5px;
+     -moz-column-gap: 5px;
+          column-gap: 5px;  
 }
 </style>
