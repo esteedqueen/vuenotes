@@ -37,6 +37,12 @@ export default {
   mounted: function() {
     const vm = this;
     loadNotes(this);
+
+    this.$watch(
+      watchable.bind(this),
+      onChange.bind(this),
+      { deep: true }
+    );
   }  
 };
 
@@ -78,6 +84,16 @@ function s4() {
   return Math.floor((1 + Math.random()) * 0x10000)
     .toString(16)
     .substring(1);
+}
+
+function watchable() {
+  if (!this.selected) return undefined;
+  return { id: this.selected.id, body: this.selected.body }
+}
+
+function onChange(val, prev) {
+  if (!prev) return;
+  save(this.notes)
 }
 </script>
 
