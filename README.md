@@ -1,5 +1,7 @@
 # vuenotes
-A Vue Experiment - Chrome extension for replacing a new tab with notes
+A Vue Experiment - Chrome extension for replacing a new tab with notes.
+* This explores the concept of [Vue Single File Components]() along with other vue properties/functionalities.
+* I explored creating multiple single file components and using a component in another component
 
 # Development
 

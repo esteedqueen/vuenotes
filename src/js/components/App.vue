@@ -13,9 +13,9 @@
           </h5>
           </div>
           <div class="column column-80" style="position:relative;">
-            <textarea v-if="selected" v-model="selected.body" placeholder="Edit me">
-            </textarea>
-          </div>        
+            <editor v-if="selected" v-model="selected.body" :key="selected.id">
+            </editor>  
+          </div>      
       </div>
       
     </div>
