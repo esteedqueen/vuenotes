@@ -6,6 +6,7 @@ This explores the concept of [Vue Single File Components](https://vuejs.org/v2/g
 * use of multiple single file components and using a component in another component
 * use of `manifest.json` for a simple chrome extension
 * use of chrome storage for saving notes locally
+* use of vue transition component
 
 # Development
 

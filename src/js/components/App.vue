@@ -13,8 +13,10 @@
           </h5>
           </div>
           <div class="column column-80" style="position:relative;">
-            <editor v-if="selected" v-model="selected.body" :key="selected.id">
-            </editor>  
+            <transition name="fade" appear>
+              <editor v-if="selected" v-model="selected.body" :key="selected.id">
+              </editor>
+            </transition>
           </div>      
       </div>
       
@@ -98,5 +100,18 @@ function onChange(val, prev) {
 </script>
 
 <style>
-  h1 { font-size: 22px; }
+.note-area {
+  padding-left: 20px;
+  position: absolute;
+  width: 100%;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .2s ease-in, transform .2s ease-in;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
 </style>
