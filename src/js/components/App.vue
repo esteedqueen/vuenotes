@@ -33,9 +33,14 @@ export default {
       selected: undefined
     };
   },
-  methods: { addNote, selectNote }
+  methods: { addNote, selectNote },
+  mounted: function() {
+    const vm = this;
+    loadNotes(this);
+  }  
 };
 
+const SKEY = 'ZENOTES';
 
 function selectNote(note) {
   if (note === this.selected) return;
@@ -46,6 +51,21 @@ function addNote() {
   const note = { id: guid(), body: '# ' };
   this.notes.unshift(note);
   this.selectNote(note);
+  save(this.notes)
+}
+
+function save(notes) {
+  if (!notes) return;
+  chrome.storage.sync.set({ [SKEY]: notes });
+}
+
+function loadNotes(vm) {
+  chrome.storage.sync.get(SKEY, ({ [SKEY]: list = [] }) => {
+    // Push all notes to our array with ES6 fancy splat syntax
+    vm.notes.push(...list);
+    // Select most recent note
+    vm.selectNote(list[0]);
+  });
 }
 
 // generate unique IDs
