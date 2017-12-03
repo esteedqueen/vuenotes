@@ -102,10 +102,12 @@ function onChange(val, prev) {
 }
 
 function removeNote(note) {
+  // filter to remove deleted note
   this.notes = this.notes.filter(e => e !== note);
-
-  // focus on the first note after delete
-  this.selected = this.notes[0];
+  // overwrite the notes array in chrome storage with remaining notes
+  chrome.storage.sync.set({ [SKEY]: this.notes });
+  // Select most recent note
+  this.selectNote(this.notes[0]);
 }
 
 </script>
